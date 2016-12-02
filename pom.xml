@@ -219,7 +219,11 @@
             <artifactId>kylin-jdbc</artifactId>
             <version>1.5.3</version>
         </dependency>
-
+		<dependency>
+		    <groupId>com.facebook.presto</groupId>
+		    <artifactId>presto-jdbc</artifactId>
+		    <version>0.152</version>
+		</dependency>
     </dependencies>
 
     <build>
@@ -230,8 +234,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
