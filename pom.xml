@@ -219,6 +219,7 @@
             <artifactId>kylin-jdbc</artifactId>
             <version>1.5.3</version>
         </dependency>
+        <!-- presto jdbc jar -->
 		<dependency>
 		    <groupId>com.facebook.presto</groupId>
 		    <artifactId>presto-jdbc</artifactId>
