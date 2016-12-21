@@ -59,10 +59,22 @@ angular.module('cBoard').config(['$stateProvider', function ($stateProvider) {
             templateUrl: 'org/cboard/view/config/category.html',
             controller: 'categoryCtrl'
         }).state('config.dataset', {
-        url: '/dataset',
-        templateUrl: 'org/cboard/view/config/dataset.html',
-        controller: 'datasetCtrl'
-    });
+            url: '/dataset',
+            templateUrl: 'org/cboard/view/config/dataset.html',
+            controller: 'datasetCtrl'
+        }).state('admin', {
+            url: '/admin',
+            abstract: true,
+            template: '<div ui-view></div>'
+        }).state('admin.user', {
+            url: '/user',
+            templateUrl: 'org/cboard/view/admin/user.html',
+            controller: 'userAdminCtrl'
+        }).state('admin.res', {
+            url: '/res',
+            templateUrl: 'org/cboard/view/admin/res.html',
+            controller: 'resAdminCtrl'
+        });
 
 }]);
 
