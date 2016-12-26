@@ -35,16 +35,23 @@
     </update>
 
     <select id="countExistDatasetName" resultType="java.lang.Long">
-        SELECT count(1) from dashboard_dataset where 1=1
+        SELECT count(1)
+          FROM dashboard_dataset
+         WHERE 1=1
         <if test="dataset_id != null" >
-        <![CDATA[
-            and dataset_id <> #{dataset_id}
-            ]]>
+          <![CDATA[
+            AND dataset_id <> #{dataset_id}
+          ]]>
         </if>
-          and dataset_name = #{dataset_name}
+            AND dataset_name = #{dataset_name}
+            AND category_name = #{category_name}
     </select>
 
     <delete id="delete">
         delete from dashboard_dataset where dataset_id = #{0}
     </delete>
+
+    <select id="checkDatasetRole" resultType="java.lang.Long">
+        SELECT count(1) FROM dashboard_dataset WHERE dataset_id = #{1} and (#{0} = '1' OR user_id = #{0} OR dataset_id IN (SELECT res_id FROM dashboard_user_role ur LEFT JOIN dashboard_role_res rr ON ur.role_id = rr.role_id WHERE ur.user_id = #{0} AND rr.res_type = 'dataset'))
+    </select>
 </mapper>
