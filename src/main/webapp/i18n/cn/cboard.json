@@ -92,6 +92,7 @@
       "KPI": "KPI",
       "PIE": "饼图",
       "LINE_BAR": "折线/柱状图",
+      "MAP": "中国地图",
       "LINE": "折线",
       "BAR": "柱状",
       "STACKED_BAR": "堆叠柱状",
@@ -157,12 +158,21 @@
   },
   "ADMIN": {
     "USER": {
+      "USER": "用户管理",
       "LOGIN_NAME": "账号",
       "NAME": "姓名",
       "PASSWORD": "密码"
     },
     "ROLE": {
-      "ROLE_NAME": "角色名"
-    }
+      "ROLE": "角色管理",
+      "ROLE_NAME": "角色名",
+      "ADMIN": "管理员"
+    },
+    "BOARD": "看板",
+    "MENU": "菜单",
+    "DATASOURCE": "数据源",
+    "DATASET": "数据集",
+    "WIDGET": "图表",
+    "CONTACT_ADMIN": "请联系管理员申请以下权限"
   }
 }

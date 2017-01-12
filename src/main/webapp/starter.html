@@ -20,6 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <!-- ngJsTree -->
     <link rel="stylesheet" href="plugins/ngJsTree/style.css">
+    <link rel="stylesheet" href="plugins/jQueryUI/theme.css">
+    <link rel="stylesheet" href="plugins/jQueryUI/jquery-ui.css">
 
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
@@ -63,10 +65,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="plugins/echart/theme-fin1.js"></script>
     <script src="lib/jquery.ba-resize.js"></script>
     <!--<script src="plugins/echart/world.json"></script>-->
-    <script src="plugins/echart/world.js"></script>
+    <!--<script src="plugins/echart/world.js"></script>-->
     <!--<script src="plugins/echart/china.json"></script>-->
     <script src="plugins/echart/china.js"></script>
-	<script src="plugins/ace/ace.js"></script>
+    <script src="plugins/ace/ace.js"></script>
     <script src="plugins/ui-ace/ui-ace.min.js"></script>
     <script src="plugins/FineMap/d3.v3.js"></script>
     <script src="plugins/FineMap/d3.tip.js"></script>
@@ -159,6 +161,7 @@ desired effect
 <script src="org/cboard/util/CBoardKpiRender.js"></script>
 <script src="org/cboard/util/CBoardTableRender.js"></script>
 <script src="org/cboard/util/CBoardMapRender.js"></script>
+<script src="org/cboard/util/CBoardJsTreeUtils.js"></script>
 
 <!-- AngularJS-->
 <script src="org/cboard/ng-app.js"></script>
@@ -171,7 +174,6 @@ desired effect
 <script src="org/cboard/controller/config/categoryCtrl.js"></script>
 <script src="org/cboard/controller/config/datasetCtrl.js"></script>
 <script src="org/cboard/controller/admin/userAdminCtrl.js"></script>
-<script src="org/cboard/controller/admin/resAdminCtrl.js"></script>
 
 <script src="org/cboard/service/dashboard/dashboardService.js"></script>
 <script src="org/cboard/service/data/dataService.js"></script>
@@ -201,7 +203,7 @@ desired effect
                     <button type="button" class="btn btn-box-tool" ng-click="reload(widget)"><i
                             class="fa fa-refresh"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" ng-click="config(widget)"><i
+                    <button type="button" class="btn btn-box-tool" ng-if="widgetCfg" ng-click="config(widget)"><i
                             class="fa fa-wrench"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -220,7 +222,7 @@ desired effect
     <div class="col-md-{{widget.width}} kpi-body">
     </div>
 </script>
-<script type="text/ng-template" id="tableContent">
+<script type="text/ng-template" id="chartContent">
     <div class="col-md-{{widget.width}}">
         <div class="box box-solid">
             <div class="box-header">
@@ -230,7 +232,7 @@ desired effect
                     <button type="button" class="btn btn-box-tool" ng-click="reload(widget)"><i
                             class="fa fa-refresh"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" ng-click="config(widget)"><i
+                    <button type="button" class="btn btn-box-tool" ng-if="widgetCfg" ng-click="config(widget)"><i
                             class="fa fa-wrench"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

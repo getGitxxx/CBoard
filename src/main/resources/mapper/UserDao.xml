@@ -14,15 +14,19 @@
     </select>
 
     <update id="update" parameterType="org.cboard.pojo.DashboardUser">
-        <![CDATA[
-
-        update dashboard_user set login_name = #{loginName},user_name = #{userName} where user_id = #{userId}
-
-        ]]>
+        update dashboard_user set login_name = #{loginName},user_name = #{userName}
+        <if test="userPassword!=null">
+            ,user_password = #{userPassword}
+        </if>
+        where user_id = #{userId}
     </update>
 
-    <delete id="deleteUserRole">
-        delete from dashboard_user_role where user_id = #{userId}
+    <delete id="deleteUserRole" parameterType="Map">
+        DELETE FROM dashboard_user_role
+         WHERE user_id = #{objUid}
+        <if test="curUid != adminUid">
+            AND role_id IN (SELECT role_id FROM dashboard_role WHERE user_id = #{curUid})
+        </if>
     </delete>
 
     <insert id="saveUserRole" parameterType="java.util.List">
@@ -49,4 +53,14 @@
         LEFT JOIN (SELECT user_id AS uid FROM dashboard_user WHERE user_id=#{0}) b ON a.uid = b.uid
         WHERE b.uid IS NULL
     </insert>
+
+    <update id="updateUserPassword">
+        <![CDATA[
+        update dashboard_user set user_password = #{2} where user_id = #{0} and user_password = #{1}
+        ]]>
+    </update>
+
+    <delete id="deleteUserRoleByRoleId">
+        delete from dashboard_user_role where role_id = #{0}
+    </delete>
 </mapper>

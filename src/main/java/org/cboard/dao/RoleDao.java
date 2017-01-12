@@ -13,7 +13,7 @@ import java.util.List;
 public interface RoleDao {
     int save(DashboardRole role);
 
-    List<DashboardRole> getRoleList();
+    List<DashboardRole> getRoleList(String userId);
 
     int update(DashboardRole role);
 
@@ -21,7 +21,11 @@ public interface RoleDao {
 
     int saveRoleRes(List<DashboardRoleRes> list);
 
-    int deleteRoleRes(String roleId, String resType);
+    int deleteRoleRes(String roleId);
 
     List<Long> getRoleResByResIds(String userId, String resType);
+
+    DashboardRole getRole(String roleId);
+
+    int deleteRole(String roleId);
 }

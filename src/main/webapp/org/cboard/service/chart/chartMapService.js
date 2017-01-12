@@ -9,7 +9,7 @@ cBoard.service('chartMapService', function (dataService) {
     };
 
     this.parseOption = function (chartData, chartConfig) {
-        var tableOption = null;
+        var mapOption = null;
         dataService.castRawData2Series(chartData, chartConfig, function (casted_keys, casted_values, aggregate_data, newValuesConfig) {
             var keysList = casted_keys,
                 keyArr = [],
@@ -26,11 +26,11 @@ cBoard.service('chartMapService', function (dataService) {
                 }
                 return arr;
             };
-            var table_data = Array.matrix(keysList.length, keysList[0].length, 0);
+            var map_data = Array.matrix(keysList.length, keysList[0].length, 0);
             for (var h = 0; h < keysList[0].length; h++) {
                 for (var k = 0; k < keysList.length; k++) {
-                    table_data[k][h] = {
-                        property: 'header_key',
+                    map_data[k][h] = {
+                        property: 'row_key',
                         data: keysList[k][h]
                     };
                 }
@@ -38,12 +38,12 @@ cBoard.service('chartMapService', function (dataService) {
             for (var i = 0; i < casted_values.length; i++) {
                 for (var j = 0; j < casted_keys.length; j++) {
                     if (!_.isUndefined(aggregate_data[i][j])) {
-                        table_data[j][i + keyLength] = {
+                        map_data[j][i + keyLength] = {
                             property: 'data',
                             data: aggregate_data[i][j]
                         };
                     } else {
-                        table_data[j][i + keyLength] = {
+                        map_data[j][i + keyLength] = {
                             property: 'data',
                             data: 'N/A'
                         };
@@ -54,14 +54,14 @@ cBoard.service('chartMapService', function (dataService) {
             for (var n = 0; n < casted_values.length; n++) {
                 for (var m = 0; m < casted_values[n].length; m++) {
                     column_header[m][n] = {
-                        property: 'header_key',
+                        property: 'column_key',
                         data: casted_values[n][m]
                     };
                 }
             }
             for (var y = 0; y < keyLength; y++) {
                 keyArr.push({
-                    property: 'header_key',
+                    property: 'row_key',
                     data: chartConfig.keys[y].col
                 });
                 emptyList.push({
@@ -74,13 +74,13 @@ cBoard.service('chartMapService', function (dataService) {
                     column_header[j] = keyArr. concat(column_header[j]) :
                     column_header[j] = emptyList.concat(column_header[j]);
             }
-            tableOption = {
+            mapOption = {
                 chartConfig: chartConfig,
-                data: column_header.concat(table_data)
+                data: column_header.concat(map_data)
             };
-            table_data = null;
+            map_data = null;
             column_header = null;
         });
-        return tableOption;
+        return mapOption;
     };
 });

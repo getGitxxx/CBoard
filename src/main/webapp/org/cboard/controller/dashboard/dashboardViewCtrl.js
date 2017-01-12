@@ -6,13 +6,17 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
 
     $scope.loading = true;
 
-    $http.get("/dashboard/getDatasetList.do").success(function (response) {
+    $http.get("dashboard/getDatasetList.do").success(function (response) {
         $scope.datasetList = response;
         $scope.realtimeDataset = {};
         $scope.datasetMeta = {};
         $scope.intervals = [];
         $scope.datasetFilters = {};
         $scope.load(false);
+    });
+
+    $http.post("admin/isConfig.do", {type: 'widget'}).success(function (response) {
+        $scope.widgetCfg = response;
     });
 
     var buildRender = function (w) {
@@ -40,13 +44,16 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
             $interval.cancel(e);
         });
         $scope.intervals = [];
-        $http.get("/dashboard/getBoardData.do?id=" + $stateParams.id).success(function (response) {
+        $http.get("dashboard/getBoardData.do?id=" + $stateParams.id).success(function (response) {
             $scope.loading = false;
             $scope.board = response;
             var queries = [];
 
             _.each($scope.board.layout.rows, function (row) {
                 _.each(row.widgets, function (widget) {
+                    if (!_.isUndefined(widget.hasRole) && !widget.hasRole) {
+                        return;
+                    }
                     var w = widget.widget.data;
                     var q;
                     for (var i = 0; i < queries.length; i++) {
@@ -82,7 +89,6 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
 
             });
 
-
             _.each($scope.board.layout.rows, function (row) {
                 _.each(row.params, function (param) {
                     param.selects = [];
@@ -92,7 +98,7 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
             });
 
             _.each(queries, function (q) {
-                $http.post("/dashboard/getCachedData.do", {
+                $http.post("dashboard/getCachedData.do", {
                     datasourceId: q.datasource,
                     query: angular.toJson(q.query),
                     datasetId: q.datasetId,
@@ -155,6 +161,8 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
                             });
                         });
                     }
+                }).error(function (data, header, config, status) {
+                    console.log(status);
                 });
             });
 
@@ -164,7 +172,7 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
                     return e.id == dsId;
                 });
                 $scope.intervals.push($interval(function () {
-                    $http.post("/dashboard/getCachedData.do", {
+                    $http.post("dashboard/getCachedData.do", {
                         datasetId: ds.id,
                     }).success(function (response) {
                         _.each($scope.realtimeDataset[dsId], function (w) {
@@ -344,7 +352,7 @@ cBoard.controller('dashboardViewCtrl', function ($rootScope, $scope, $state, $st
 
     $scope.reload = function (widget) {
         widget.show = false;
-        $http.post("/dashboard/getCachedData.do", {
+        $http.post("dashboard/getCachedData.do", {
             datasourceId: widget.widget.data.datasource,
             query: angular.toJson(widget.widget.data.query),
             datasetId: widget.widget.data.datasetId,

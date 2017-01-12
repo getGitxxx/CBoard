@@ -44,7 +44,7 @@ angular.module('cBoard').config(['$stateProvider', function ($stateProvider) {
             controller: 'boardCtrl'
         })
         .state('config.widget', {
-            url: '/widget/{id}',
+            url: '/widget',
             params: {id: null},
             templateUrl: 'org/cboard/view/config/widget.html',
             controller: 'widgetCtrl'
@@ -70,10 +70,6 @@ angular.module('cBoard').config(['$stateProvider', function ($stateProvider) {
             url: '/user',
             templateUrl: 'org/cboard/view/admin/user.html',
             controller: 'userAdminCtrl'
-        }).state('admin.res', {
-            url: '/res',
-            templateUrl: 'org/cboard/view/admin/res.html',
-            controller: 'resAdminCtrl'
         });
 
 }]);
@@ -148,7 +144,7 @@ angular.module('cBoard').config(function ($httpProvider) {
 angular.module('cBoard').config(function ($translateProvider, $translatePartialLoaderProvider) {
     $translatePartialLoaderProvider.addPart('cboard');
     $translateProvider.useLoader('$translatePartialLoader', {
-        urlTemplate: '/i18n/{lang}/{part}.json'
+        urlTemplate: 'i18n/{lang}/{part}.json'
     });
 
     $translateProvider.preferredLanguage(settings.preferredLanguage);

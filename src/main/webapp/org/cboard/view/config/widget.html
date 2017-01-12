@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="box box-solid">
-                <div class="box-header panel panel-default">
+                <div class="box-header with-border">
                     <i class="fa fa-bar-chart-o"></i> <h3 class="box-title"> {{'CONFIG.WIDGET.WIDGET'|translate}}</h3>
                     <div class="box-tools pull-right">
                         <i class="glyphicon glyphicon-plus toolbar-icon" ng-click="newWgt()" title="{{'COMMON.NEW'|translate}}"></i>&nbsp;&nbsp;
@@ -13,9 +13,12 @@
                         <i class="fa fa-trash-o toolbar-icon"  ng-click="deleteNode()" title="{{'COMMON.DELETE'|translate}}"></i>
                     </div>
                 </div>
+                <div class="box-body">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="keywords" ng-change="searchNode()">
+                </div>
                 <div class="panel-body">
-                    <div js-tree="treeConfig" should-apply="applyModelChanges()" ng-model="treeData" tree="treeInstance"
-                         tree-events="ready:readyCB;activate_node:selectNode;move_node:moveNode"></div>
+                    <div id="widgetTreeID" js-tree="treeConfig" should-apply="applyModelChanges()" ng-model="treeData" tree="treeInstance"
+                         tree-events-obj="treeEventsObj"></div>
                 </div>
             </div>
         </div>
@@ -58,7 +61,7 @@
                             </div>
                             <div class="row" ng-show="customDs">
                                 <div class="col-md-12" ng-show="datasource.name"
-                                     ng-include="datasource.type?('/dashboard/getConfigView.do?type=' + datasource.type):''"></div>
+                                     ng-include="datasource.type?('dashboard/getConfigView.do?type=' + datasource.type):''"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

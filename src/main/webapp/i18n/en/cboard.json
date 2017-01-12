@@ -51,7 +51,7 @@
       "CUSTOM_EXPRESSION": "Calculated Measures"
     },
     "DATA_SOURCE": {
-      "DATA_SOURCE_HEADER": "Data Source(s)",
+      "DATA_SOURCE_HEADER": "Data Source",
       "DATA_PROVIDER": "Data Source Type",
       "NAME": "Data Source Name",
       "TEST": "Test"
@@ -92,6 +92,7 @@
       "KPI": "KPI",
       "PIE": "Pie",
       "LINE_BAR": "Line/Bar",
+      "MAP": "China Map",
       "LINE": "Line",
       "BAR": "Bar",
       "STACKED_BAR": "Stacked Bar",
@@ -157,12 +158,21 @@
   },
   "ADMIN": {
     "USER": {
+      "USER": "User",
       "LOGIN_NAME": "Login Name",
       "NAME": "User Name",
       "PASSWORD": "Password"
     },
     "ROLE": {
-      "ROLE_NAME": "Role Name"
-    }
+      "ROLE": "Role",
+      "ROLE_NAME": "Role Name",
+      "ADMIN": "Administrator"
+    },
+    "BOARD": "Dashboard",
+    "MENU": "Menu",
+    "DATASOURCE": "Datasource",
+    "DATASET": "Cube",
+    "WIDGET": "Widget",
+    "CONTACT_ADMIN": "Please contact the administrator to apply the following resources' access"
   }
 }
