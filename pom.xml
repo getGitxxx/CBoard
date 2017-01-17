@@ -15,6 +15,8 @@
         <mybatisspring.version>1.1.1</mybatisspring.version>
         <jackson.version>1.9.10</jackson.version>
         <jdk.version>1.8</jdk.version>
+        <hive.version>0.14.0</hive.version>
+        <hadoop.version>2.4.0</hadoop.version>
     </properties>
     <dependencies>
         <dependency>
@@ -235,6 +237,34 @@
 		    <artifactId>presto-jdbc</artifactId>
 		    <version>0.152</version>
 		</dependency>
+		<!-- spark sql jdbc start -->
+		<dependency>
+			<groupId>org.apache.hive</groupId>
+			<artifactId>hive-jdbc</artifactId>
+			<version>${hive.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jetty-all</artifactId>
+					<groupId>org.eclipse.jetty.aggregate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-common</artifactId>
+			<version>${hadoop.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jdk.tools</artifactId>
+					<groupId>jdk.tools</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- spark sql jdbc end -->
     </dependencies>
 
     <build>
