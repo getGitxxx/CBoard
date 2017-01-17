@@ -224,6 +224,10 @@ cBoard.controller('widgetCtrl', function ($scope, $stateParams, $http, $uibModal
                     }];
                 };
                 $scope.ok = function () {
+                    if (!$scope.data.alias) {
+                        ModalUtils.alert(translate('CONFIG.WIDGET.ALIAS') + translate('COMMON.NOT_EMPTY'), "modal-warning", "lg");
+                        return;
+                    }
                     ok($scope.data);
                     $uibModalInstance.close();
                 };
@@ -269,12 +273,12 @@ cBoard.controller('widgetCtrl', function ($scope, $stateParams, $http, $uibModal
                 return ds.id == $scope.curWidget.datasetId;
             }).data.expressions);
 
-            if ($scope.optFlag == 'new') {
+            var axes = $scope.curWidget.config.values;
+            if ($scope.optFlag == 'new' || _.isUndefined(axes)) {
                 $scope.expressions = dsExp;
             } else {
                 // de-duplicate expression
                 var colInAxes = [];
-                var axes = $scope.curWidget.config.values;
                 for (var i = 0; i < axes.length; i++) {
                     colInAxes = colInAxes.concat(axes[i].cols)
                 }
